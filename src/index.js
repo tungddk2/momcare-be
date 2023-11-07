@@ -5,24 +5,24 @@ const moment = require('moment')
 
 // LOAD .ENV SETTINGS
 
-//const database = require('./Services/Database')
+// const database = require('./Services/Database')
 const settings = require('./Settings')
 const routes = require('./Routes')
 
 const app = express()
 const server = http.Server(app)
 
-function log(msg) {
-    console.log(`[${moment().format('HH:mm:ss')}] ${msg}`)
+function log (msg) {
+  console.log(`[${moment().format('HH:mm:ss')}] ${msg}`)
 }
 
 // START DATABASE SERVICE
-//database.connect()
+// database.connect()
 
 app.use((req, _res, next) => {
-    log(`${req.method} ${req.path}`)
+  log(`${req.method} ${req.path}`)
 
-    next()
+  next()
 })
 
 // ADDS CORS HEADER
@@ -35,5 +35,5 @@ app.use(express.json())
 app.use(routes)
 
 server.listen(settings.PORT, () => {
-    console.log(`[ SERVER INFO ] RUNNING ON PORT ${settings.PORT}`)
+  console.log(`[ SERVER INFO ] RUNNING ON PORT ${settings.PORT}`)
 })

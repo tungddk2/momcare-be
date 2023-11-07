@@ -1,5 +1,4 @@
-const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   return sequelize.define('HospitalAppointment', {
     hospitalAppointmentId: {
       autoIncrement: true,
@@ -37,27 +36,27 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: false,
     indexes: [
       {
-        name: "PRIMARY",
+        name: 'PRIMARY',
         unique: true,
-        using: "BTREE",
+        using: 'BTREE',
         fields: [
-          { name: "hospitalAppointmentId" },
+          { name: 'hospitalAppointmentId' }
         ]
       },
       {
-        name: "fk_HospitalAppointment_Hospital",
-        using: "BTREE",
+        name: 'fk_HospitalAppointment_Hospital',
+        using: 'BTREE',
         fields: [
-          { name: "hospitalId" },
+          { name: 'hospitalId' }
         ]
       },
       {
-        name: "fk_HospitalAppointment_Patient",
-        using: "BTREE",
+        name: 'fk_HospitalAppointment_Patient',
+        using: 'BTREE',
         fields: [
-          { name: "patientId" },
+          { name: 'patientId' }
         ]
-      },
+      }
     ]
-  });
-};
+  })
+}

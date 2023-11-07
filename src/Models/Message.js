@@ -1,5 +1,4 @@
-const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   return sequelize.define('Message', {
     messageId: {
       autoIncrement: true,
@@ -37,20 +36,20 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: false,
     indexes: [
       {
-        name: "PRIMARY",
+        name: 'PRIMARY',
         unique: true,
-        using: "BTREE",
+        using: 'BTREE',
         fields: [
-          { name: "messageId" },
+          { name: 'messageId' }
         ]
       },
       {
-        name: "fk_Message_Conversation",
-        using: "BTREE",
+        name: 'fk_Message_Conversation',
+        using: 'BTREE',
         fields: [
-          { name: "conversationId" },
+          { name: 'conversationId' }
         ]
-      },
+      }
     ]
-  });
-};
+  })
+}

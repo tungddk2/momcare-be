@@ -1,5 +1,4 @@
-const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   return sequelize.define('Invoice', {
     invoiceId: {
       autoIncrement: true,
@@ -53,27 +52,27 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: false,
     indexes: [
       {
-        name: "PRIMARY",
+        name: 'PRIMARY',
         unique: true,
-        using: "BTREE",
+        using: 'BTREE',
         fields: [
-          { name: "invoiceId" },
+          { name: 'invoiceId' }
         ]
       },
       {
-        name: "fk_Invoice_CallAppointment",
-        using: "BTREE",
+        name: 'fk_Invoice_CallAppointment',
+        using: 'BTREE',
         fields: [
-          { name: "callAppointmentId" },
+          { name: 'callAppointmentId' }
         ]
       },
       {
-        name: "fk_Invoice_Conversation",
-        using: "BTREE",
+        name: 'fk_Invoice_Conversation',
+        using: 'BTREE',
         fields: [
-          { name: "conversationId" },
+          { name: 'conversationId' }
         ]
-      },
+      }
     ]
-  });
-};
+  })
+}

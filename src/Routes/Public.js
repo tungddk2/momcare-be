@@ -10,7 +10,7 @@ publicRouter.post('/user', UserController.create)
 
 // a default route that will return a 404 error
 publicRouter.get('*', (req, res) => {
-    res.status(404).json({ success: false, error: 'Resource not found' })
+  res.status(404).json({ success: false, error: 'Resource not found' })
 })
 
 module.exports = publicRouter
