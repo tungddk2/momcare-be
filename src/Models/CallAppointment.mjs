@@ -1,6 +1,6 @@
-module.exports = function (sequelize, DataTypes) {
-  return sequelize.define('HospitalComment', {
-    hospitalCommentId: {
+export default function (sequelize, DataTypes) {
+  return sequelize.define('CallAppointment', {
+    callAppointmentId: {
       autoIncrement: true,
       type: DataTypes.BIGINT.UNSIGNED,
       allowNull: false,
@@ -10,6 +10,18 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: false
     },
+    form: {
+      type: DataTypes.STRING(128),
+      allowNull: false
+    },
+    doctorId: {
+      type: DataTypes.MEDIUMINT.UNSIGNED,
+      allowNull: false,
+      references: {
+        model: 'Doctor',
+        key: 'doctorId'
+      }
+    },
     patientId: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
@@ -18,25 +30,13 @@ module.exports = function (sequelize, DataTypes) {
         key: 'patientId'
       }
     },
-    hospitalId: {
-      type: DataTypes.MEDIUMINT.UNSIGNED,
-      allowNull: false,
-      references: {
-        model: 'Hospital',
-        key: 'hospitalId'
-      }
-    },
-    comment: {
-      type: DataTypes.TEXT,
-      allowNull: false
-    },
-    point: {
-      type: DataTypes.INTEGER.UNSIGNED,
+    state: {
+      type: DataTypes.STRING(128),
       allowNull: false
     }
   }, {
     sequelize,
-    tableName: 'HospitalComment',
+    tableName: 'CallAppointment',
     timestamps: false,
     indexes: [
       {
@@ -44,21 +44,21 @@ module.exports = function (sequelize, DataTypes) {
         unique: true,
         using: 'BTREE',
         fields: [
-          { name: 'hospitalCommentId' }
+          { name: 'callAppointmentId' }
         ]
       },
       {
-        name: 'fk_HospitalComment_Patient',
+        name: 'fk_CallAppointment_Patient',
         using: 'BTREE',
         fields: [
           { name: 'patientId' }
         ]
       },
       {
-        name: 'fk_HospitalComment_Hospital',
+        name: 'fk_CallAppointment_Doctor',
         using: 'BTREE',
         fields: [
-          { name: 'hospitalId' }
+          { name: 'doctorId' }
         ]
       }
     ]

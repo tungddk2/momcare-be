@@ -1,21 +1,22 @@
-const DataTypes = require('sequelize').DataTypes
-const _Attachment = require('./Attachment')
-const _Call = require('./Call')
-const _CallAppointment = require('./CallAppointment')
-const _Conversation = require('./Conversation')
-const _Doctor = require('./Doctor')
-const _DoctorComment = require('./DoctorComment')
-const _Hospital = require('./Hospital')
-const _HospitalAppointment = require('./HospitalAppointment')
-const _HospitalComment = require('./HospitalComment')
-const _Invoice = require('./Invoice')
-const _MedicalHistory = require('./MedicalHistory')
-const _MedicalRecord = require('./MedicalRecord')
-const _Message = require('./Message')
-const _Patient = require('./Patient')
-const _Payment = require('./Payment')
-const _Prescription = require('./Prescription')
-const _Transaction = require('./Transaction')
+import { DataTypes, Sequelize } from 'sequelize'
+import _Attachment from './Attachment.mjs'
+import _Call from './Call.mjs'
+import _CallAppointment from './CallAppointment.mjs'
+import _Conversation from './Conversation.mjs'
+import _Doctor from './Doctor.mjs'
+import _DoctorComment from './DoctorComment.mjs'
+import _Hospital from './Hospital.mjs'
+import _HospitalAppointment from './HospitalAppointment.mjs'
+import _HospitalComment from './HospitalComment.mjs'
+import _Invoice from './Invoice.mjs'
+import _MedicalHistory from './MedicalHistory.mjs'
+import _MedicalRecord from './MedicalRecord.mjs'
+import _Message from './Message.mjs'
+import _Patient from './Patient.mjs'
+import _Payment from './Payment.mjs'
+import _Prescription from './Prescription.mjs'
+import _Transaction from './Transaction.mjs'
+import { mysqlDB } from '../Settings.mjs'
 
 function initModels (sequelize) {
   const Attachment = _Attachment(sequelize, DataTypes)
@@ -103,6 +104,16 @@ function initModels (sequelize) {
     Transaction
   }
 }
-module.exports = initModels
-module.exports.initModels = initModels
-module.exports.default = initModels
+
+console.log(mysqlDB)
+
+const sequelize = new Sequelize(mysqlDB.DB_NAME, mysqlDB.DB_USER, mysqlDB.DB_PASSWORD, {
+  host: mysqlDB.DB_HOST,
+  port: mysqlDB.DB_PORT,
+  dialect: 'mysql'
+})
+
+const models = initModels(sequelize)
+const db = { sequelize, models }
+
+export default db

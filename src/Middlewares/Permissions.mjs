@@ -18,4 +18,4 @@ const permit = (roles = []) => {
   }
 }
 
-module.exports = permit
+export default permit

@@ -1,10 +1,14 @@
-module.exports = function (sequelize, DataTypes) {
-  return sequelize.define('MedicalRecord', {
-    medicalRecordId: {
+export default function (sequelize, DataTypes) {
+  return sequelize.define('DoctorComment', {
+    doctorCommentId: {
       autoIncrement: true,
       type: DataTypes.BIGINT.UNSIGNED,
       allowNull: false,
       primaryKey: true
+    },
+    time: {
+      type: DataTypes.DATE,
+      allowNull: false
     },
     patientId: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -22,29 +26,17 @@ module.exports = function (sequelize, DataTypes) {
         key: 'doctorId'
       }
     },
-    time: {
-      type: DataTypes.DATE,
-      allowNull: false
-    },
-    medicalHistoryId: {
-      type: DataTypes.BIGINT.UNSIGNED,
-      allowNull: false,
-      references: {
-        model: 'MedicalHistory',
-        key: 'medicalHistoryId'
-      }
-    },
-    diagnostic: {
+    comment: {
       type: DataTypes.TEXT,
       allowNull: false
     },
-    note: {
-      type: DataTypes.TEXT,
+    point: {
+      type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false
     }
   }, {
     sequelize,
-    tableName: 'MedicalRecord',
+    tableName: 'DoctorComment',
     timestamps: false,
     indexes: [
       {
@@ -52,28 +44,21 @@ module.exports = function (sequelize, DataTypes) {
         unique: true,
         using: 'BTREE',
         fields: [
-          { name: 'medicalRecordId' }
+          { name: 'doctorCommentId' }
         ]
       },
       {
-        name: 'fk_MedicalRecord_Patient',
+        name: 'fk_DoctorComment_Patient',
         using: 'BTREE',
         fields: [
           { name: 'patientId' }
         ]
       },
       {
-        name: 'fk_MedicalRecord_Doctor',
+        name: 'fk_DoctorComment_Doctor',
         using: 'BTREE',
         fields: [
           { name: 'doctorId' }
-        ]
-      },
-      {
-        name: 'fk_MedicalRecord_MedicalHistory',
-        using: 'BTREE',
-        fields: [
-          { name: 'medicalHistoryId' }
         ]
       }
     ]

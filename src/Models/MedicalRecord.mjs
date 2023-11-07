@@ -1,6 +1,6 @@
-module.exports = function (sequelize, DataTypes) {
-  return sequelize.define('Conversation', {
-    conversationId: {
+export default function (sequelize, DataTypes) {
+  return sequelize.define('MedicalRecord', {
+    medicalRecordId: {
       autoIncrement: true,
       type: DataTypes.BIGINT.UNSIGNED,
       allowNull: false,
@@ -22,17 +22,29 @@ module.exports = function (sequelize, DataTypes) {
         key: 'doctorId'
       }
     },
-    startTime: {
+    time: {
       type: DataTypes.DATE,
       allowNull: false
     },
-    state: {
-      type: DataTypes.STRING(128),
+    medicalHistoryId: {
+      type: DataTypes.BIGINT.UNSIGNED,
+      allowNull: false,
+      references: {
+        model: 'MedicalHistory',
+        key: 'medicalHistoryId'
+      }
+    },
+    diagnostic: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
+    note: {
+      type: DataTypes.TEXT,
       allowNull: false
     }
   }, {
     sequelize,
-    tableName: 'Conversation',
+    tableName: 'MedicalRecord',
     timestamps: false,
     indexes: [
       {
@@ -40,21 +52,28 @@ module.exports = function (sequelize, DataTypes) {
         unique: true,
         using: 'BTREE',
         fields: [
-          { name: 'conversationId' }
+          { name: 'medicalRecordId' }
         ]
       },
       {
-        name: 'fk_Conversation_Patient',
+        name: 'fk_MedicalRecord_Patient',
         using: 'BTREE',
         fields: [
           { name: 'patientId' }
         ]
       },
       {
-        name: 'fk_Conversation_Doctor',
+        name: 'fk_MedicalRecord_Doctor',
         using: 'BTREE',
         fields: [
           { name: 'doctorId' }
+        ]
+      },
+      {
+        name: 'fk_MedicalRecord_MedicalHistory',
+        using: 'BTREE',
+        fields: [
+          { name: 'medicalHistoryId' }
         ]
       }
     ]

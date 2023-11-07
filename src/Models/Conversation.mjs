@@ -1,6 +1,6 @@
-module.exports = function (sequelize, DataTypes) {
-  return sequelize.define('Payment', {
-    paymentId: {
+export default function (sequelize, DataTypes) {
+  return sequelize.define('Conversation', {
+    conversationId: {
       autoIncrement: true,
       type: DataTypes.BIGINT.UNSIGNED,
       allowNull: false,
@@ -14,25 +14,25 @@ module.exports = function (sequelize, DataTypes) {
         key: 'patientId'
       }
     },
-    amount: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false
+    doctorId: {
+      type: DataTypes.MEDIUMINT.UNSIGNED,
+      allowNull: false,
+      references: {
+        model: 'Doctor',
+        key: 'doctorId'
+      }
     },
-    paymentTime: {
+    startTime: {
       type: DataTypes.DATE,
       allowNull: false
     },
-    status: {
-      type: DataTypes.STRING(128),
-      allowNull: false
-    },
-    paymentMethod: {
+    state: {
       type: DataTypes.STRING(128),
       allowNull: false
     }
   }, {
     sequelize,
-    tableName: 'Payment',
+    tableName: 'Conversation',
     timestamps: false,
     indexes: [
       {
@@ -40,14 +40,21 @@ module.exports = function (sequelize, DataTypes) {
         unique: true,
         using: 'BTREE',
         fields: [
-          { name: 'paymentId' }
+          { name: 'conversationId' }
         ]
       },
       {
-        name: 'fk_Payment_Patient',
+        name: 'fk_Conversation_Patient',
         using: 'BTREE',
         fields: [
           { name: 'patientId' }
+        ]
+      },
+      {
+        name: 'fk_Conversation_Doctor',
+        using: 'BTREE',
+        fields: [
+          { name: 'doctorId' }
         ]
       }
     ]
