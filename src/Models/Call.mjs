@@ -33,7 +33,7 @@ export default function (sequelize, DataTypes) {
   }, {
     sequelize,
     tableName: 'Call',
-    timestamps: false,
+    timestamps: true,
     indexes: [
       {
         name: 'PRIMARY',

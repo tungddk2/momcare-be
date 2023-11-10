@@ -1,10 +1,13 @@
 export default function (sequelize, DataTypes) {
   return sequelize.define('Doctor', {
     doctorId: {
-      autoIncrement: true,
-      type: DataTypes.MEDIUMINT.UNSIGNED,
+      type: DataTypes.BIGINT.UNSIGNED,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      references: {
+        model: 'User',
+        key: 'userId'
+      }
     },
     name: {
       type: DataTypes.STRING(100),
@@ -49,11 +52,18 @@ export default function (sequelize, DataTypes) {
   }, {
     sequelize,
     tableName: 'Doctor',
-    timestamps: false,
+    timestamps: true,
     indexes: [
       {
         name: 'PRIMARY',
         unique: true,
+        using: 'BTREE',
+        fields: [
+          { name: 'doctorId' }
+        ]
+      },
+      {
+        name: 'fk_Doctor_User',
         using: 'BTREE',
         fields: [
           { name: 'doctorId' }

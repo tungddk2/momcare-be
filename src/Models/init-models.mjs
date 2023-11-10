@@ -16,6 +16,7 @@ import _Patient from './Patient.mjs'
 import _Payment from './Payment.mjs'
 import _Prescription from './Prescription.mjs'
 import _Transaction from './Transaction.mjs'
+import _User from './User.mjs'
 import { mysqlDB } from '../Settings.mjs'
 
 function initModels (sequelize) {
@@ -36,6 +37,7 @@ function initModels (sequelize) {
   const Payment = _Payment(sequelize, DataTypes)
   const Prescription = _Prescription(sequelize, DataTypes)
   const Transaction = _Transaction(sequelize, DataTypes)
+  const User = _User(sequelize, DataTypes)
 
   Call.belongsTo(CallAppointment, { as: 'callAppointment', foreignKey: 'callAppointmentId' })
   CallAppointment.hasMany(Call, { as: 'Calls', foreignKey: 'callAppointmentId' })

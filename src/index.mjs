@@ -21,7 +21,7 @@ function log (msg) {
 // database.connect()
 
 (async () => {
-  await db.sequelize.sync()
+  await db.sequelize.sync(/* { force: true } */)
 })()
 
 app.use((req, _res, next) => {

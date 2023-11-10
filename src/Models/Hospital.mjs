@@ -29,7 +29,7 @@ export default function (sequelize, DataTypes) {
   }, {
     sequelize,
     tableName: 'Hospital',
-    timestamps: false,
+    timestamps: true,
     indexes: [
       {
         name: 'PRIMARY',

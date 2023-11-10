@@ -11,7 +11,7 @@ export default function (sequelize, DataTypes) {
       allowNull: false
     },
     patientId: {
-      type: DataTypes.INTEGER.UNSIGNED,
+      type: DataTypes.BIGINT.UNSIGNED,
       allowNull: false,
       references: {
         model: 'Patient',
@@ -37,7 +37,7 @@ export default function (sequelize, DataTypes) {
   }, {
     sequelize,
     tableName: 'HospitalComment',
-    timestamps: false,
+    timestamps: true,
     indexes: [
       {
         name: 'PRIMARY',

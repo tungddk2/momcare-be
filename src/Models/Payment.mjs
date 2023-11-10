@@ -7,7 +7,7 @@ export default function (sequelize, DataTypes) {
       primaryKey: true
     },
     patientId: {
-      type: DataTypes.INTEGER.UNSIGNED,
+      type: DataTypes.BIGINT.UNSIGNED,
       allowNull: false,
       references: {
         model: 'Patient',
@@ -33,7 +33,7 @@ export default function (sequelize, DataTypes) {
   }, {
     sequelize,
     tableName: 'Payment',
-    timestamps: false,
+    timestamps: true,
     indexes: [
       {
         name: 'PRIMARY',

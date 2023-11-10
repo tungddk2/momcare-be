@@ -37,7 +37,7 @@ export default function (sequelize, DataTypes) {
   }, {
     sequelize,
     tableName: 'Transaction',
-    timestamps: false,
+    timestamps: true,
     indexes: [
       {
         name: 'PRIMARY',
