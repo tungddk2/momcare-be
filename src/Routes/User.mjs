@@ -1,11 +1,25 @@
 import { Router } from 'express'
-import auth from '../Middlewares/Authentication'
 import UserController from '../Controllers/User.mjs'
 
-const routes = Router()
+const UserRoutes = Router()
 
-// routes.post('/login', auth.login)
+/**
+ * @swagger
+ * /users/login:
+ *   get:
+ *     summary: Retrieve a list of JSONPlaceholder users
+ *     description: Retrieve a list of users from JSONPlaceholder. Can be used to populate a list of fake users when prototyping or testing an API.
+ */
+UserRoutes.post('/user/login', UserController.login)
 
-routes.get('/users/:id', auth, UserController.getUserById)
+UserRoutes.post('/user/register', UserController.register)
 
-export default routes
+/**
+ * @swagger
+ * /users/logout:
+ *   post:
+ *
+ */
+UserRoutes.post('/user/logout', UserController.logout)
+
+export default UserRoutes

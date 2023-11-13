@@ -11,23 +11,33 @@ export default function (sequelize, DataTypes) {
     },
     name: {
       type: DataTypes.STRING(100),
-      allowNull: false
+      allowNull: false,
     },
     age: {
       type: DataTypes.TINYINT.UNSIGNED,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isNumeric: true,
+        min: 18
+      }
     },
     sex: {
       type: DataTypes.BOOLEAN,
-      allowNull: false
+      allowNull: false,
+      default: false
     },
     phone: {
       type: DataTypes.STRING(20),
       allowNull: false
     },
     medicalSpecialty: {
-      type: DataTypes.TEXT,
-      allowNull: false
+      type: DataTypes.SMALLINT.UNSIGNED,
+      allowNull: false,
+      default: 0,
+      references: {
+        model: 'MedicalSpecialty',
+        key: 'id'
+      }
     },
     hospital: {
       type: DataTypes.STRING(300),
@@ -39,15 +49,18 @@ export default function (sequelize, DataTypes) {
     },
     consultingPriceViaMessage: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false
+      allowNull: true,
+      default: 50
     },
     consultingPriceViaCall: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false
+      allowNull: true,
+      default: 50
     },
     point: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false
+      allowNull: true,
+      default: 0
     }
   }, {
     sequelize,
@@ -67,6 +80,13 @@ export default function (sequelize, DataTypes) {
         using: 'BTREE',
         fields: [
           { name: 'doctorId' }
+        ]
+      },
+      {
+        name: 'fk_Doctor_MedicalSpecialty',
+        using: 'BTREE',
+        fields: [
+          { name: 'medicalSpecialty' }
         ]
       }
     ]

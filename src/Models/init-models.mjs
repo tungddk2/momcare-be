@@ -11,10 +11,12 @@ import _HospitalComment from './HospitalComment.mjs'
 import _Invoice from './Invoice.mjs'
 import _MedicalHistory from './MedicalHistory.mjs'
 import _MedicalRecord from './MedicalRecord.mjs'
+import _MedicalSpecialty from './MedicalSpecialty.mjs'
 import _Message from './Message.mjs'
 import _Patient from './Patient.mjs'
 import _Payment from './Payment.mjs'
 import _Prescription from './Prescription.mjs'
+import _Token from './Token.mjs'
 import _Transaction from './Transaction.mjs'
 import _User from './User.mjs'
 import { mysqlDB } from '../Settings.mjs'
@@ -32,10 +34,12 @@ function initModels (sequelize) {
   const Invoice = _Invoice(sequelize, DataTypes)
   const MedicalHistory = _MedicalHistory(sequelize, DataTypes)
   const MedicalRecord = _MedicalRecord(sequelize, DataTypes)
+  const MedicalSpecialty = _MedicalSpecialty(sequelize, DataTypes)
   const Message = _Message(sequelize, DataTypes)
   const Patient = _Patient(sequelize, DataTypes)
   const Payment = _Payment(sequelize, DataTypes)
   const Prescription = _Prescription(sequelize, DataTypes)
+  const Token = _Token(sequelize, DataTypes)
   const Transaction = _Transaction(sequelize, DataTypes)
   const User = _User(sequelize, DataTypes)
 
@@ -85,6 +89,10 @@ function initModels (sequelize) {
   Patient.hasMany(Payment, { as: 'Payments', foreignKey: 'patientId' })
   Transaction.belongsTo(Payment, { as: 'payment', foreignKey: 'paymentId' })
   Payment.hasMany(Transaction, { as: 'Transactions', foreignKey: 'paymentId' })
+  Doctor.belongsTo(User, { as: 'user', foreignKey: 'doctorId' })
+  Patient.belongsTo(User, { as: 'user', foreignKey: 'patientId' })
+  Token.belongsTo(User, { as: 'user', foreignKey: 'id' })
+  User.hasOne(Token, { as: 'Tokens', foreignKey: 'id' })
 
   return {
     Attachment,
@@ -99,15 +107,16 @@ function initModels (sequelize) {
     Invoice,
     MedicalHistory,
     MedicalRecord,
+    MedicalSpecialty,
     Message,
     Patient,
     Payment,
     Prescription,
-    Transaction
+    Token,
+    Transaction,
+    User
   }
 }
-
-console.log(mysqlDB)
 
 const sequelize = new Sequelize(mysqlDB.DB_NAME, mysqlDB.DB_USER, mysqlDB.DB_PASSWORD, {
   host: mysqlDB.DB_HOST,
@@ -115,7 +124,7 @@ const sequelize = new Sequelize(mysqlDB.DB_NAME, mysqlDB.DB_USER, mysqlDB.DB_PAS
   dialect: 'mysql'
 })
 
-const models = initModels(sequelize)
+export const models = initModels(sequelize)
 const db = { sequelize, models }
 
 export default db

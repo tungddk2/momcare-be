@@ -7,3 +7,8 @@ export const mysqlDB = {
 }
 
 export const PORT = process.env.PORT || 3000
+export const JWT_SECRET = process.env.JWT_KEY || 'secret'
+export const DEFAULT_TIMEOUT = {
+  num: 15 * 60, // 15 minutes
+  str: '15m'
+}

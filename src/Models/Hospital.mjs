@@ -16,20 +16,21 @@ export default function (sequelize, DataTypes) {
     },
     workingTime: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: true
     },
     point: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false
+      allowNull: true,
+      default: 0
     },
     commentary: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: true
     }
   }, {
     sequelize,
     tableName: 'Hospital',
-    timestamps: true,
+    timestamps: false,
     indexes: [
       {
         name: 'PRIMARY',

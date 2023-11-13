@@ -2,13 +2,11 @@ import express, { json } from 'express'
 import { Server } from 'http'
 import cors from 'cors'
 import moment from 'moment'
-
-// LOAD .ENV SETTINGS
-
-// const database = require('./Services/Database')
 import { PORT } from './Settings.mjs'
 import routes from './Routes/index.mjs'
 import db from './Models/init-models.mjs'
+import specs from "./Swagger.mjs";
+import swaggerUi from "swagger-ui-express";
 
 const app = express()
 const server = Server(app)
@@ -37,7 +35,9 @@ app.use(cors())
 app.use(json())
 
 // USES DEFINED ROUTES
-app.use(routes)
+app.use('/api/v1', routes)
+app.use('/api-docs', swaggerUi.serve)
+app.use('/api-docs', swaggerUi.setup(specs))
 
 server.listen(PORT, () => {
   console.log(`[ SERVER INFO ] RUNNING ON PORT ${PORT}`)

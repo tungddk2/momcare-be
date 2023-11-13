@@ -15,7 +15,12 @@ export default function (sequelize, DataTypes) {
     },
     age: {
       type: DataTypes.TINYINT.UNSIGNED,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isNumeric: true,
+        min: 5,
+        max: 100
+      }
     },
     sex: {
       type: DataTypes.BOOLEAN,

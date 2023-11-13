@@ -9,16 +9,23 @@ export default function (sequelize, DataTypes) {
     email: {
       type: DataTypes.STRING(128),
       allowNull: false,
-      unique: true
+      unique: true,
+      validate: {
+        isEmail: true,
+      }
     },
     password_hash: {
-      type: DataTypes.STRING(128),
-      allowNull: false
+      type: DataTypes.STRING(64),
+      allowNull: false,
+    },
+    role: {
+      type: DataTypes.SMALLINT.UNSIGNED,
+      allowNull: false,
     },
     googleId: {
       type: DataTypes.STRING(128),
       allowNull: true
-    },
+    }
   }, {
     sequelize,
     tableName: 'User',

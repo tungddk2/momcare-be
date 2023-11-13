@@ -1,14 +1,15 @@
 import { Router } from 'express'
 
-import publicRouter from './Public.mjs'
-import privateRouter from './Private.mjs'
-
-import authMiddleware from '../Middlewares/Authentication.mjs'
+import UserRoutes from "./User.mjs";
+import AdminRoutes from "./Admin.mjs";
+import DoctorRoutes from "./Doctor.mjs";
+import PatientRoutes from "./Patient.mjs";
 
 const routes = Router()
 
-routes.use(publicRouter)
-routes.use(authMiddleware)
-routes.use(privateRouter)
+routes.use(AdminRoutes)
+routes.use(UserRoutes)
+routes.use(DoctorRoutes)
+routes.use(PatientRoutes)
 
 export default routes
